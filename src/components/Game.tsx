@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { getWordBank, shuffleArray } from '../utils';
 import GameLayout from './GameLayout';
@@ -41,6 +41,12 @@ const Game = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [wordList, setWordList] = useState<Word[]>(createWordList());
   const [result, setResult] = useState<GameResultProps | null>(null);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    focusInput();
+  }, []);
 
   useEffect(() => {
     if (currentValue.trim() !== '' && !isPlaying) {
@@ -147,6 +153,7 @@ const Game = () => {
     setCurrentValue('');
     setWordList(createWordList());
     startGame();
+    focusInput();
   };
 
   const finishGame = () => {
@@ -172,8 +179,18 @@ const Game = () => {
     });
   };
 
-  const updateValue = (value: string) => {
-    setCurrentValue(value);
+  const updateValue = () => {
+    const input = inputRef.current;
+
+    if (!input) {
+      return;
+    }
+
+    setCurrentValue(input.value);
+  };
+
+  const focusInput = () => {
+    inputRef.current?.focus();
   };
 
   return (
@@ -186,9 +203,10 @@ const Game = () => {
           <WordList words={wordList} />
           <div className="border-t-2">
             <Input
-              value={currentValue}
-              onValueChanged={updateValue}
               placeholder="type the words here"
+              value={currentValue}
+              onInput={() => updateValue()}
+              ref={inputRef}
             />
           </div>
         </>

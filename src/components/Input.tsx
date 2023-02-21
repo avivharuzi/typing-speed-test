@@ -1,40 +1,24 @@
-import { useEffect, useRef } from 'react';
+import { FormEventHandler, forwardRef } from 'react';
 
 export interface InputProps {
   placeholder?: string;
   value?: string;
-  onValueChanged?: (value: string) => void;
+  onInput: FormEventHandler<HTMLInputElement>;
 }
 
-const Input = ({
-  placeholder = '',
-  value = '',
-  onValueChanged,
-}: InputProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const input = inputRef.current;
-
-    if (!input) {
-      return;
-    }
-
-    input.value = value;
-  }, [value]);
-
-  return (
-    <input
-      ref={inputRef}
-      className="w-full h-12 p-2 rounded-b-lg focus:outline-none text-center text-2xl focus:ring-2 focus:ring-purple-300"
-      type="text"
-      placeholder={placeholder}
-      onInput={(event) =>
-        onValueChanged &&
-        onValueChanged((event.target as HTMLInputElement).value)
-      }
-    />
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ placeholder = '', value = '', onInput }, ref) => {
+    return (
+      <input
+        className="w-full h-12 p-2 rounded-b-lg focus:outline-none text-center text-2xl focus:ring-2 focus:ring-purple-300"
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onInput={onInput}
+        ref={ref}
+      />
+    );
+  }
+);
 
 export default Input;
