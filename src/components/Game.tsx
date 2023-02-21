@@ -45,8 +45,10 @@ const Game = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    focusInput();
-  }, []);
+    if (!result) {
+      focusInput();
+    }
+  }, [result]);
 
   useEffect(() => {
     if (currentValue.trim() !== '' && !isPlaying) {
