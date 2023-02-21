@@ -7,7 +7,7 @@ export interface WordListProps {
 const WordList = ({ words }: WordListProps) => {
   return (
     <div className="p-3 flex">
-      <div className="grid gap-8 grid-cols-4 justify-items-center w-full">
+      <div className="grid gap-4 lg:gap-8 grid-cols-3 lg:grid-cols-4 justify-items-center w-full">
         {words.map((word, index) => {
           return <WordItem key={index} word={word} />;
         })}

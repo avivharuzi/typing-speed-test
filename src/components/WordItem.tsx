@@ -30,7 +30,7 @@ const WordItem = ({ word }: WordItemProps) => {
 
   return (
     <span
-      className={`text-3xl tracking-wide p-1 rounded-lg ${
+      className={`text-sm md:text-lg lg:text-3xl tracking-wide p-1 rounded-lg ${
         WORD_STATUS_CLASS_RECORD[status]
       } ${isHidden ? 'hidden' : ''}`}
     >

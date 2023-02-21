@@ -9,7 +9,6 @@ import Input from './Input';
 import { Word, WordLetter } from './WordItem';
 import WordList from './WordList';
 
-// 4 each row * 3
 const MAX_VISIBLE_WORDS = 12;
 
 // 60 seconds
