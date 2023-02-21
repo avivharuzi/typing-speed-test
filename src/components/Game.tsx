@@ -205,7 +205,7 @@ const Game = () => {
             <Input
               placeholder="type the words here"
               value={currentValue}
-              onInput={() => updateValue()}
+              onInput={updateValue}
               ref={inputRef}
             />
           </div>
